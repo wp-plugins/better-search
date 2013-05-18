@@ -35,7 +35,6 @@ function bsearch_options() {
 		$bsearch_settings[use_fulltext] = (($_POST['use_fulltext']) ? true : false);
 		$bsearch_settings[d_use_js] = (($_POST['d_use_js']) ? true : false);
 		$bsearch_settings[include_pages] = (($_POST['include_pages']) ? true : false);
-		$bsearch_settings[include_attachments] = (($_POST['include_attachments']) ? true : false);
 		$bsearch_settings[show_credit] = (($_POST['show_credit']) ? true : false);
 		
 		$bsearch_settings[heatmap_smallest] = ($_POST['heatmap_smallest']);
@@ -63,18 +62,6 @@ function bsearch_options() {
 		$str = '<div id="message" class="updated fade"><p>'. __('Options set to Default.', BSEARCH_LOCAL_NAME) .'</p></div>';
 		echo $str;
 	}
-	if ($_POST['bsearch_trunc_all']){
-		bsearch_trunc_count(false);
-		$str = '<div id="message" class="updated fade"><p>'. __('Popular searches count reset',bsearch_LOCAL_NAME) .'</p></div>';
-		echo $str;
-	}
-
-	if ($_POST['bsearch_trunc_daily']){
-		bsearch_trunc_count(true);
-		$str = '<div id="message" class="updated fade"><p>'. __('Daily popular searches count reset',bsearch_LOCAL_NAME) .'</p></div>';
-		echo $str;
-	}
-
 ?>
 
 <div class="wrap">
@@ -115,12 +102,6 @@ function bsearch_options() {
       <label>
       <input type="checkbox" name="include_pages" id="include_pages" <?php if ($bsearch_settings[include_pages]) echo 'checked="checked"' ?> />
       <?php _e('Include WordPress static pages in Search Results', BSEARCH_LOCAL_NAME); ?>
-      </label>
-    </p>
-    <p>
-      <label>
-      <input type="checkbox" name="include_attachments" id="include_attachments" <?php if ($bsearch_settings[include_attachments]) echo 'checked="checked"' ?> />
-      <?php _e('Include attachments in Search Results', BSEARCH_LOCAL_NAME); ?>
       </label>
     </p>
     <p>
@@ -214,19 +195,24 @@ function bsearch_options() {
       <input type="submit" name="bsearch_save" id="bsearch_save" value="Save Options" style="border:#00CC00 1px solid" />
       <input name="bsearch_default" type="submit" id="bsearch_default" value="Default Options" style="border:#FF0000 1px solid" onclick="if (!confirm('<?php _e('Do you want to set options to Default?', BSEARCH_LOCAL_NAME); ?>')) return false;" />
     </p>
-    <h4>
-      <?php _e('Reset count',bsearch_LOCAL_NAME); ?>
-    </h4>
-    <p>
-      <?php _e('This cannot be reversed. Make sure that your database has been backed up before proceeding',bsearch_LOCAL_NAME); ?>
-    </p>
-    <p>
-      <input name="bsearch_trunc_all" type="submit" id="bsearch_trunc_all" value="<?php _e('Reset popular search count', BSEARCH_LOCAL_NAME); ?>" style="border:#900 1px solid" onclick="if (!confirm('<?php _e('Are you sure you want to reset the popular searches?',bsearch_LOCAL_NAME); ?>')) return false;" />
-      <input name="bsearch_trunc_daily" type="submit" id="bsearch_trunc_daily" value="<?php _e('Reset daily popular search count', BSEARCH_LOCAL_NAME); ?>" style="border:#C00 1px solid" onclick="if (!confirm('<?php _e('Are you sure you want to reset the daily popular searches?',bsearch_LOCAL_NAME); ?>')) return false;" />
-    </p>
   </form>
 </div>
   <div id="side">
+	<div class="side-widget">
+	<span class="title"><?php _e('Quick links') ?></span>				
+	<ul>
+		<li><a href="http://ajaydsouza.com/wordpress/plugins/better-search/"><?php _e('Better Search ');_e('plugin page',BSEARCH_LOCAL_NAME) ?></a></li>
+		<li><a href="http://ajaydsouza.com/wordpress/plugins/"><?php _e('Other plugins',BSEARCH_LOCAL_NAME) ?></a></li>
+		<li><a href="http://ajaydsouza.com/"><?php _e('Ajay\'s blog',BSEARCH_LOCAL_NAME) ?></a></li>
+		<li><a href="http://ajaydsouza.org"><?php _e('Support forum',BSEARCH_LOCAL_NAME) ?></a></li>
+		<li><a href="http://twitter.com/ajaydsouza"><?php _e('Follow @ajaydsouza on Twitter',BSEARCH_LOCAL_NAME) ?></a></li>
+	</ul>
+	</div>
+	<div class="side-widget">
+	<span class="title"><?php _e('Recent developments',BSEARCH_LOCAL_NAME) ?></span>				
+	<?php require_once(ABSPATH . WPINC . '/rss.php'); wp_widget_rss_output('http://ajaydsouza.com/archives/category/wordpress/plugins/feed/', array('items' => 5, 'show_author' => 0, 'show_date' => 1));
+	?>
+	</div>
 	<div class="side-widget">
 		<span class="title"><?php _e('Support the development',BSEARCH_LOCAL_NAME) ?></span>
 		<div id="donate-form">
@@ -244,22 +230,6 @@ function bsearch_options() {
 			<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
 			</form>
 		</div>
-	</div>
-	<div class="side-widget">
-	<span class="title"><?php _e('Quick links') ?></span>				
-	<ul>
-		<li><a href="http://ajaydsouza.com/wordpress/plugins/better-search/"><?php _e('Better Search ');_e('plugin page',BSEARCH_LOCAL_NAME) ?></a></li>
-		<li><a href="http://ajaydsouza.com/wordpress/plugins/"><?php _e('Other plugins',BSEARCH_LOCAL_NAME) ?></a></li>
-		<li><a href="http://ajaydsouza.com/"><?php _e('Ajay\'s blog',BSEARCH_LOCAL_NAME) ?></a></li>
-		<li><a href="http://ajaydsouza.com/support/"><?php _e('Support',BSEARCH_LOCAL_NAME) ?></a></li>
-		<li><a href="http://twitter.com/ajaydsouza"><?php _e('Follow @ajaydsouza on Twitter',BSEARCH_LOCAL_NAME) ?></a></li>
-		<li><a href="http://facebook.com/ajaydsouzacom"><?php _e('Become our fan on Facebook',BSEARCH_LOCAL_NAME) ?></a></li>
-	</ul>
-	</div>
-	<div class="side-widget">
-	<span class="title"><?php _e('Recent developments',BSEARCH_LOCAL_NAME) ?></span>				
-	<?php require_once(ABSPATH . WPINC . '/rss.php'); wp_widget_rss_output('http://ajaydsouza.com/archives/category/wordpress/plugins/feed/', array('items' => 5, 'show_author' => 0, 'show_date' => 1));
-	?>
 	</div>
   </div>
   
@@ -300,7 +270,7 @@ function bsearch_adminhead() {
 <?php }
 
 // Function to clean the database
-function bsearch_trunc_count($daily=true) {
+function bsearch_clean_db($daily=true) {
 	global $wpdb;
 	$table_name = ($daily) ? $wpdb->prefix . "bsearch_daily" : $wpdb->prefix . "bsearch";
 
