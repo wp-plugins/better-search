@@ -9,7 +9,7 @@
  *
  * @wordpress-plugin
  * Plugin Name: Better Search
- * Version:     1.3.4
+ * Version:     1.3.5
  * Plugin URI:  http://ajaydsouza.com/wordpress/plugins/better-search/
  * Description: Replace the default WordPress search with a contextual search. Search results are sorted by relevancy ensuring a better visitor search experience.
  * Author:      Ajay D'Souza
@@ -100,11 +100,19 @@ function bsearch_template_redirect() {
 	add_action( 'wp_head', 'bsearch_head' );
 	add_filter( 'wp_title', 'bsearch_title' );
 
-	// If there is a template file then we use it
-	$exists = file_exists( get_stylesheet_directory() . '/better-search-template.php' );
-	if ( $exists ) {
-		include_once( get_stylesheet_directory() . '/better-search-template.php' );
-		exit;
+	// If there is a template file within the parent or child theme then we use it
+	$priority_template_lookup = array(
+		get_stylesheet_directory() . '/better-search-template.php',
+		get_template_directory() . '/better-search-template.php'
+	);
+
+	foreach( $priority_template_lookup as $exists ) {
+
+		if( file_exists( $exists ) ) {
+
+			include_once( $exists );
+			exit;
+		}
 	}
 
 	// Create a template here if there is a template
@@ -948,7 +956,7 @@ function the_pop_searches() {
 function bsearch_where_clause( $where ) {
 	global $wp_query, $wpdb, $bsearch_settings;
 
-	if ( $wp_query->is_search && $bsearch_settings['seamless'] ) {
+	if ( $wp_query->is_search && $bsearch_settings['seamless'] && !is_admin() ) {
 		$search_ids = bsearch_clause_prepare();
 
 		if ( '' != $search_ids ) {
@@ -968,7 +976,7 @@ add_filter( 'posts_where' , 'bsearch_where_clause' );
 function bsearch_orderby_clause( $orderby ) {
 	global $wp_query, $wpdb, $bsearch_settings;
 
-	if ( $wp_query->is_search && $bsearch_settings['seamless'] ) {
+	if ( $wp_query->is_search && $bsearch_settings['seamless'] && !is_admin() ) {
 		$search_ids = bsearch_clause_prepare();
 
 		if ( '' != $search_ids ) {
@@ -1385,9 +1393,9 @@ function bsearch_clean_terms( $val ) {
 
 	$badwords = array_map( 'trim', explode( ",", $bsearch_settings['badwords'] ) );
 
-	$val = wp_kses_post( $val );
 	$val_censored = bsearch_censor_string( $val, $badwords, ' ' );	// No more bad words
 	$val = $val_censored['clean'];
+	$val = wp_kses_post( $val );
 	return $val;
 }
 
@@ -1471,7 +1479,7 @@ function bsearch_censor_string( $string, $badwords, $censorChar = '*' ) {
 	}
 
 	$newstring = array();
-	$newstring['orig'] = html_entity_decode( $string );
+	$newstring['orig'] = ( $string );
 	$newstring['clean'] = preg_replace( $badwords, $replacement, $newstring['orig'] );
 
 	return $newstring;
