@@ -3,8 +3,8 @@ Tags: search, Better Search, related search, relevant search, search results, he
 Contributors: Ajay
 Donate link: http://ajaydsouza.com/donate/
 Stable tag: trunk
-Requires at least: 3.1
-Tested up to: 4.2
+Requires at least: 3.5
+Tested up to: 4.3
 License: GPLv2 or later
 
 
@@ -12,13 +12,11 @@ Better Search replaces the default WordPress search with a better search that gi
 
 == Description ==
 
-The default WordPress search is limited because it gives you results by date and not by relevance.
-
 <a href="http://ajaydsouza.com/wordpress/plugins/better-search/">Better Search</a> replaces the default WordPress search engine with a more powerful search engine that gives search results relevant to the title and content of the post. This means that visitors to your blog will find will find what they are looking for quicker than if you didn't have **Better Search** installed.
 
 Better Search can search through not just posts, but also pages and other custom post types. Let your visitors find what they are looking for.
 
-The plugin is packed with options to allow you to easily customise the output. You can also fine tune the results by assigning a greater weight to either the title or the content. Better Search supports templates for perfect integration into your blog template.
+The plugin is packed with options to allow you to easily customise the output. You can also fine tune the results by assigning a greater weight to either the title or the content. The default mode is a seamless integration with your WordPress theme. And, for power users, Better Search supports templates for that extra something.
 
 Additionally, the plugin also tracks the searches and you to display a "search heatmap" of the most popular searches. Support for WordPress widgets will allow you to easily add this heatmap to your theme's sidebar or footer.
 
@@ -28,6 +26,7 @@ Additionally, the plugin also tracks the searches and you to display a "search h
 * **Seamless integration**: From v1.3.3, you can activate seamless integration which will output the search results perfectly integrated into your theme without the need for custom search templates
 * **Relevance**: Search results are automatically sorted by relevance. You can also turn off relevancy based searching, in which case, results are sorted by date
 * **Control the results**: Fine tune the results by changing the weighting of post title and post content. Turn on BOOLEAN search to override the default NATURAL LANGUAGE search of mySQL
+* **Highlight**: Highlight the search terms in the results
 * **Popular searches**: Find out what visitors are searching for on your blog. Display a list of popular search terms (daily and overall) on your blog in the form of a heatmap. Widget support for easy integration in your theme
 * **Customisation**: Support for a template file for perfect integration into your blog template. Alternatively, just input your own CSS styles in the *Custom Styles* tab in the Settings Page. Check the FAQ for more information
 * **Supports cache plugins**: Works with caching plugins like WP-Super-Cache and W3 Total Cache
@@ -35,17 +34,37 @@ Additionally, the plugin also tracks the searches and you to display a "search h
 * **Translation ready**: Better Search is translation ready. If you're interested in translating Better Search into your own language <a href="http://ajaydsouza.com/contact/">let me know</a>.
 
 
+= Contribute =
+Better Search is also available on Github at https://github.com/ajaydsouza/better-search
+So, if you've got some cool feature that you'd like to implement into the plugin or a bug you've been able to fix, consider forking the project and sending me a pull request.
+
+
 == Upgrade Notice ==
 
-= 1.3.6 =
-Fixes missing wick files in Settings page 404 error;
+= 2.0.0 =
+Highlight search results; Filterable search query; multisite support; bug fixes;
 Check the Changelog for details
 
 
 == Changelog ==
 
+= 2.0.0 =
+* New: Network Activate and Deactivate the plugin on WordPress Multisite
+* New: Option to highlight search results. If missing, add: <code>.bsearch_highlight { background:#ffc; }</code> under Custom Styles
+* New: Fully filterable search query
+* New: Recreate Index button in the settings page
+* New: Delete transients button in the settings page
+* Modified: Better Search will now try BOOLEAN MODE and non-FULLTEXT modes in case FULLTEXT search doesn't return any results
+* Modified: Deprecated always dynamic heatmap option that bypassed cache
+* Modified: Reorganised admin interface
+* Modified: Seamless mode is now the default mode
+* Modified: Better Search uses transients to catch results when not using seamless mode
+* Modified: Search form uses `class` instead of `id`
+* Fixed: Seamless mode would overwrite all queries, even those outside the loop
+* Fixed: WordPress widget settings
+
 = 1.3.6 =
-Fixes missing wick files in Settings page 404 error
+* Fixes missing wick files in Settings page 404 error
 
 = 1.3.5 =
 * Fixed: Seamless mode interfered with the Media search in the Admin
@@ -156,10 +175,11 @@ Fixed: PHP Notices
 == Screenshots ==
 
 1. Options in WP-Admin - General options
-2. Options in WP-Admin - Output options
-3. Options in WP-Admin - Custom CSS
-4. Options in WP-Admin - Reset count
-5. Better Search widget
+2. Options in WP-Admin - Search options
+3. Options in WP-Admin - Heatmap options
+4. Options in WP-Admin - Custom styles
+5. Options in WP-Admin - Reset count and Maintenance
+6. Better Search widget
 
 
 == Frequently Asked Questions ==

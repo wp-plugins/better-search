@@ -1,8 +1,8 @@
 # Better Search - Supercharge your WordPress search results!
 
-__Requires:__ 3.0
+__Requires:__ 3.5
 
-__Tested up to:__ 4.2
+__Tested up to:__ 4.3
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -12,13 +12,11 @@ Better Search replaces the default WordPress search with a better search that gi
 
 ## Description
 
-The default WordPress search is limited because it gives you results by date and not by relevance.
-
 <a href="http://ajaydsouza.com/wordpress/plugins/better-search/">Better Search</a> replaces the default WordPress search engine with a more powerful search engine that gives search results relevant to the title and content of the post. This means that visitors to your blog will find will find what they are looking for quicker than if you didn't have **Better Search** installed.
 
 Better Search can search through not just posts, but also pages and other custom post types. Let your visitors find what they are looking for.
 
-The plugin is packed with options to allow you to easily customise the output. You can also fine tune the results by assigning a greater weight to either the title or the content. Better Search supports templates for perfect integration into your blog template.
+The plugin is packed with options to allow you to easily customise the output. You can also fine tune the results by assigning a greater weight to either the title or the content. The default mode is a seamless integration with your WordPress theme. And, for power users, Better Search supports templates for that extra something.
 
 Additionally, the plugin also tracks the searches and you to display a "search heatmap" of the most popular searches. Support for WordPress widgets will allow you to easily add this heatmap to your theme's sidebar or footer.
 
@@ -36,7 +34,7 @@ Additionally, the plugin also tracks the searches and you to display a "search h
 
 
 ## Screenshots
-![General Options](https://raw.github.com/ajaydsouza/better-search/master/screenshot-1.png)
+![General Options](https://raw.github.com/ajaydsouza/better-search/master/assets/screenshot-1.png)
 _Better Search settings page - General Options._
 
 For more screenshots visit the <a href="http://wordpress.org/plugins/better-search/screenshots/">WordPress plugin page</a>
